@@ -1,5 +1,3 @@
-
-template <typename T>
 struct Vector {
     double x,y,z;
 
