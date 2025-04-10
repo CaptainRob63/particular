@@ -2,7 +2,7 @@
 
 
 template<typename T>
-class Array {
+    class Array {
 protected:
     T* data;
     size_t size;
@@ -14,7 +14,10 @@ public:
     Array& operator=(const Array&);
     T& operator[](size_t idx);
     const T& operator[](size_t idx) const;
-
+    
+    void insert(T* elem, size_t idx);
+    void remove(size_t idx);
+    virtual ~Array();
 };
 template<typename T>
 std::ostream& operator<<(std::ostream&, Array<T>);
