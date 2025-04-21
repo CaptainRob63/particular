@@ -7,7 +7,7 @@ class GravityParticle : Particle {
 protected:
     bool isGravityInteracting;
 public:
-    Vector calcForces();
+    virtual Vector calcForces();
 };
 
 

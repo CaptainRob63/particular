@@ -21,7 +21,7 @@ public:
     Particle& operator=(const Particle&);    
     virtual ~Particle();
 
-    Vector calcForces();
+    virtual Vector calcForces();
     void addVelocity(Vector deltaV);
    };
 

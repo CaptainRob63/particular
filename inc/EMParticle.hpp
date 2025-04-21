@@ -7,7 +7,7 @@ class EMParticle : Particle {
 protected:
     double charge;
 public:
-    Vector calcForces();
+    virtual Vector calcForces();
 };
 
 
