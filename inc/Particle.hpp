@@ -3,7 +3,7 @@
 
 #include "Vector.hpp"
 #include "Simulation.hpp"
-#include "ParticleArray.hpp"
+
 #include <ostream>
 
 class Particle {
