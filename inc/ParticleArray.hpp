@@ -8,6 +8,6 @@
 
 class ParticleArray : Array<Particle> {
     const Simulation& simulation;
-}
+};
 
 #endif

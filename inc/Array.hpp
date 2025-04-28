@@ -1,7 +1,5 @@
 #include <ostream>
 
-
-
 template<typename T>
     class Array {
 protected:
