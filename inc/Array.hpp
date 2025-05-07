@@ -6,6 +6,8 @@ protected:
     T* data;
     size_t size;
     size_t capacity;
+
+    void deepCopy(const Array&);
 public:
     Array(size_t s = 1);
     Array(const Array&);

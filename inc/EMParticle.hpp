@@ -1,9 +1,9 @@
 #ifndef EMPARTICLE_HPP
 #define EMPARTICLE_HPP
 
-#include "Particle.hpp"
+#include "GravityParticle.hpp"
 
-class EMParticle : Particle {
+class EMParticle : GravityParticle {
 protected:
     double charge;
 public:
