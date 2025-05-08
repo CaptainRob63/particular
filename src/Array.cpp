@@ -38,8 +38,7 @@ void Array<T>::deepCopy(const Array& other)
 // Element access (non-const)
 template<typename T>
 T& Array<T>::operator[](size_t idx)
-{
-    
+{ 
     return data[idx];
 }
 
@@ -47,7 +46,6 @@ T& Array<T>::operator[](size_t idx)
 template<typename T>
 const T& Array<T>::operator[](size_t idx) const
 {
-    // empty
     return data[idx];
 }
 
@@ -55,7 +53,8 @@ const T& Array<T>::operator[](size_t idx) const
 template<typename T>
 void Array<T>::insert(T* elem, size_t idx)
 {
-    // empty
+    if (idx < 0 | idx > size - 1) throw outofboundexception;     /// TODO
+    if (size >= capacity) doubleCapacity();                     /// TODO 
 }
 
 // Remove element at position idx
@@ -79,3 +78,4 @@ std::ostream& operator<<(std::ostream& os, Array<T> arr)
     // empty
     return os;
 }
+
