@@ -53,8 +53,16 @@ const T& Array<T>::operator[](size_t idx) const
 template<typename T>
 void Array<T>::insert(T* elem, size_t idx)
 {
+    // guarantee insertion is possible
     if (idx < 0 | idx > size - 1) throw outofboundexception;     /// TODO
     if (size >= capacity) doubleCapacity();                     /// TODO 
+
+    // move array elements to make space
+    for (size_t i = size - 1; i < idx; i--)
+        *this[i + 1] = *this[i]
+    
+    *this[idx] = elem
+    
 }
 
 // Remove element at position idx
