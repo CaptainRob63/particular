@@ -65,7 +65,7 @@ public:
      * @param elem element
      * @param idx index
      */
-    void insert(T* elem, size_t idx);
+    void insert(const T& elem, size_t idx);
 
 
     /**

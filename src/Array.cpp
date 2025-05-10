@@ -51,7 +51,7 @@ const T& Array<T>::operator[](size_t idx) const
 
 // Insert an element pointer at position idx
 template<typename T>
-void Array<T>::insert(T* elem, size_t idx)
+void Array<T>::insert(const T& elem, size_t idx)
 {
     // guarantee insertion is possible
     if (idx < 0 | idx > size - 1) throw outofboundexception;     /// TODO
@@ -62,7 +62,6 @@ void Array<T>::insert(T* elem, size_t idx)
         *this[i + 1] = *this[i]
     
     *this[idx] = elem
-    
 }
 
 // Remove element at position idx
