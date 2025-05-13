@@ -49,11 +49,11 @@ const T& Array<T>::operator[](size_t idx) const
     return data[idx];
 }
 
-// Insert an element pointer at position idx
+// insert an element pointer at position idx
 template<typename T>
 void Array<T>::insert(const T& elem, size_t idx)
 {
-    // guarantee insertion is possible
+    // validation
     if (idx < 0 | idx > size - 1) throw outofboundexception;     /// TODO
     if (size >= capacity) doubleCapacity();                     /// TODO 
 
@@ -68,21 +68,26 @@ void Array<T>::insert(const T& elem, size_t idx)
 template<typename T>
 void Array<T>::remove(size_t idx)
 {
-    // empty
+    // validation
+    if (idx < 0 | idx > size - 1) throw outofboundexception;
+
+    // move array elements back to delete element at index
+    for (size_t i = idx; i < size; i++)
+        *this[i] = *this[i + 1];
 }
 
 // Destructor
 template<typename T>
 Array<T>::~Array()
 {
-    // empty
+    delete[] data;
 }
 
 // Stream-output operator (by value, as declared)
 template<typename T>
 std::ostream& operator<<(std::ostream& os, Array<T> arr)
 {
-    // empty
+    // empty:
     return os;
 }
 
