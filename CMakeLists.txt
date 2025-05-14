@@ -5,10 +5,9 @@ add_compile_options(-Wall -Werror -pedantic -g)
 add_executable(Particular src/main.cpp
                           src/Array.cpp)
 
-add_executable(Test src/test.cpp)
+add_executable(Test test/test.cpp)
 
 enable_testing()
 add_test(NAME Test COMMAND Test)
 
 target_include_directories(Particular PRIVATE inc)
-target_include_directories(Test       PRIVATE inc)
