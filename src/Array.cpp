@@ -64,6 +64,13 @@ void Array<T>::insert(const T& elem, size_t idx)
     *this[idx] = elem
 }
 
+// insert an element at end
+template<typename T>
+void Array<T>::insert(const T& elem)
+{
+    insert(elem, size);
+}
+
 // Remove element at position idx
 template<typename T>
 void Array<T>::remove(size_t idx)
@@ -76,6 +83,13 @@ void Array<T>::remove(size_t idx)
         *this[i] = *this[i + 1];
 }
 
+// remove element at end
+template<typename T>
+void Array<T>::remove() 
+{
+    remove(size - 1);
+} 
+
 // Destructor
 template<typename T>
 Array<T>::~Array()
@@ -87,7 +101,9 @@ Array<T>::~Array()
 template<typename T>
 std::ostream& operator<<(std::ostream& os, Array<T> arr)
 {
-    // empty:
+    for(size_t i = 0; i < arr.size - 1; i++)
+        os << arr[i] << ", ";
+    os << arr[arr.size - 1];
     return os;
 }
 

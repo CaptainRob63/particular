@@ -67,6 +67,12 @@ public:
      */
     void insert(const T& elem, size_t idx);
 
+    /**
+     * @brief insert element into array at end 
+     * 
+     * @param elem element 
+     */
+    void insert(const T& elem);
 
     /**
      * @brief remove element at index 
@@ -75,7 +81,12 @@ public:
      */
     void remove(size_t idx);
 
-    
+    /**
+     * @brief remove element at end  
+     * 
+     */
+    void remove();
+ 
     /**
      * @brief Array destructor
      * 
