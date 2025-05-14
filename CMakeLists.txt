@@ -5,7 +5,8 @@ add_compile_options(-Wall -Werror -pedantic -g)
 add_executable(Particular src/main.cpp
                           src/Array.cpp)
 
-add_executable(Test test/test.cpp)
+add_executable(Test test/test.cpp
+                    test/memtrace.cpp)
 
 enable_testing()
 add_test(NAME Test COMMAND Test)
