@@ -30,7 +30,7 @@ Array<T>& Array<T>::operator=(const Array& other)
 template<typename T>
 void Array<T>::deepCopy(const Array& other) 
 {
-    data = new T[capacity]
+    data = new T[capacity];
     for (size_t i = 0; i < size; i++)
         data[i] = other[i];
 }
@@ -54,14 +54,14 @@ template<typename T>
 void Array<T>::insert(const T& elem, size_t idx)
 {
     // validation
-    if (idx < 0 | idx > size - 1) throw outofboundexception;     /// TODO
-    if (size >= capacity) doubleCapacity();                     /// TODO 
+    // if (idx < 0 | idx > size - 1) throw outofboundexception;     /// TODO
+    // if (size >= capacity) doubleCapacity();                     /// TODO 
 
     // move array elements to make space
     for (size_t i = size - 1; i < idx; i--)
         *this[i + 1] = *this[i]
     
-    *this[idx] = elem
+    *this[idx] = elem;
 }
 
 // insert an element at end
@@ -76,7 +76,8 @@ template<typename T>
 void Array<T>::remove(size_t idx)
 {
     // validation
-    if (idx < 0 | idx > size - 1) throw outofboundexception;
+    // if (idx < 0 | idx > size - 1) throw outofboundexception;
+    // if (size < (capacity / 2) ) halveCapacity();
 
     // move array elements back to delete element at index
     for (size_t i = idx; i < size; i++)
