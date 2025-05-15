@@ -1,105 +1,196 @@
-#include <ostream>
+#ifndef ARRAY_HPP
+#define ARRAY_HPP
 
-template<typename T>
-    class Array {
-protected:
-    T* data;
-    size_t size;
-    size_t capacity;
-
-    /**
-     * @brief Deep copy other array into this array 
-     * 
-     * @param other Array to deep copy from
-     */
-    void deepCopy(const Array& other);
-public:
-
-    /**
-     * @brief Array constructor 
-     * 
-     * @tparam Array type 
-     * @param cap initial capacity of array  
-     */
-    Array(size_t cap = 16);
-
-
-    /**
-     * @brief Copy constructor 
-     * 
-     * @param other array to construct from
-     */
-    Array(const Array& other);
-    
-
-    /**
-     * @brief Assignment operator 
-     * 
-     * @param other Array to assign from
-     * @return Array& 
-     */
-    Array& operator=(const Array& other);
-
-
-    /**
-     * @brief lvalue random access operator 
-     * 
-     * @param idx index 
-     * @return T& | reference to stored data 
-     */
-    T& operator[](size_t idx);
-
-
-    /**
-     * @brief const lvalue random access operator 
-     * 
-     * @param idx index 
-     * @return const T& | const reference to stored data 
-     */
-    const T& operator[](size_t idx) const;
-    
-
-    /**
-     * @brief insert element into array at index 
-     * 
-     * @param elem element
-     * @param idx index
-     */
-    void insert(const T& elem, size_t idx);
-
-    /**
-     * @brief insert element into array at end 
-     * 
-     * @param elem element 
-     */
-    void insert(const T& elem);
-
-    /**
-     * @brief remove element at index 
-     * 
-     * @param idx index
-     */
-    void remove(size_t idx);
-
-    /**
-     * @brief remove element at end  
-     * 
-     */
-    void remove();
- 
-    /**
-     * @brief Array destructor
-     * 
-     */
-    virtual ~Array();
-};
-
+#include <cstddef>
+#include <iostream>
+#include <stdexcept>
 
 /**
- * @brief print to ostream operator 
+ * @brief Generic dynamic array class template
  * 
- * @tparam T   type of array object 
- * @return std::ostream& 
+ * @tparam T Type of elements stored
  */
 template<typename T>
-std::ostream& operator<<(std::ostream&, Array<T>);
+class Array {
+private:
+    T* data;              
+    size_t size;          
+    size_t capacity;      
+
+    /**
+     * @brief Deep copy helper
+     * 
+     * @param other Array to copy from
+     */
+    void deepCopy(const Array& other) 
+    {
+        data = new T[capacity];
+        for (size_t i = 0; i < size; ++i)
+            data[i] = other.data[i];
+    }
+
+public:
+    /**
+     * @brief Constructor
+     * 
+     * @param cap Initial capacity
+     */
+    Array(size_t cap = 16)
+        : data(nullptr), size(0), capacity(cap) 
+    {
+        data = new T[capacity];
+    }
+
+    /**
+     * @brief Copy constructor
+     * 
+     * @param other Array to copy
+     */
+    Array(const Array& other)
+        : data(nullptr), size(other.size), capacity(other.capacity) 
+    {
+        deepCopy(other);
+    }
+
+    /**
+     * @brief Copy assignment
+     * 
+     * @param other Array to copy
+     * @return Array& Reference to this
+     */
+    Array& operator=(const Array& other) 
+    {
+        if (this == &other) return *this;
+        delete[] data;
+        size = other.size;
+        capacity = other.capacity;
+        deepCopy(other);
+        return *this;
+    }
+
+    /**
+     * @brief Destructor
+     */
+    ~Array() 
+    {
+        delete[] data;
+    }
+
+    /**
+     * @brief Element access (non-const)
+     * 
+     * @param idx Index
+     * @return T& Reference to element
+     */
+    T& operator[](size_t idx) 
+    {
+        if (idx >= size) throw std::out_of_range("Index out of range");
+        return data[idx];
+    }
+
+    /**
+     * @brief Element access (const)
+     * 
+     * @param idx Index
+     * @return const T& Const reference to element
+     */
+    const T& operator[](size_t idx) const 
+    {
+        if (idx >= size) throw std::out_of_range("Index out of range");
+        return data[idx];
+    }
+
+    /**
+     * @brief Insert an element at a specific index
+     * 
+     * @param elem Element to insert
+     * @param idx Index at which to insert
+     */
+    void insert(const T& elem, size_t idx) 
+    {
+        if (idx > size) throw std::out_of_range("Insert index out of bounds");
+        if (size >= capacity) doubleCapacity(); 
+
+        for (size_t i = size; i > idx; i--) {
+            data[i] = data[i - 1];
+        }
+
+        data[idx] = elem;
+        size++;
+    }
+
+    /**
+     * @brief Insert an element at the end of the array
+     * 
+     * @param elem Element to insert
+     */
+    void insert(const T& elem) 
+    {
+        insert(elem, size);
+    }
+
+    /**
+     * @brief Remove element at a specific index
+     * 
+     * @param idx Index to remove
+     */
+    void remove(size_t idx) 
+    {
+        if (idx >= size) throw std::out_of_range("Remove index out of bounds");
+
+        for (size_t i = idx; i < size - 1; ++i) {
+            data[i] = data[i + 1];
+        }
+
+        size--;
+    }
+
+    /**
+     * @brief Remove the last element
+     */
+    void remove() 
+    {
+        if (size == 0) throw std::underflow_error("Array is empty");
+        size--;
+    }
+
+    /**
+     * @brief Get the current size
+     * 
+     * @return size_t Number of elements
+     */
+    size_t getSize() const 
+    {
+        return size;
+    }
+
+    /**
+     * @brief Get the current capacity
+     * 
+     * @return size_t Allocated capacity
+     */
+    size_t getCapacity() const 
+    {
+        return capacity;
+    }
+
+};
+
+/**
+ * @brief Output stream operator for Array
+ * 
+ * @tparam T Type of elements
+ * @param os Output stream
+ * @param arr Array to output
+ * @return std::ostream& Reference to output stream
+ */
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const Array<T>& arr) {
+    for (size_t i = 0; i < arr.getSize(); ++i) {
+        os << arr[i];
+        if (i < arr.getSize() - 1) os << ", ";
+    }
+    return os;
+}
+
+#endif // ARRAY_HPP
