@@ -4,7 +4,7 @@ add_compile_options(-Wall -Werror -pedantic -g)
 
 # main source files
 add_executable(Particular src/main.cpp
-                          src/Array.cpp)
+                          )
 
 
 # includes
@@ -17,7 +17,7 @@ add_executable(Test
                     test/memtrace.cpp
                     
                     # main sources
-                    src/Array.cpp)
+                    )
 
 target_include_directories(Test PRIVATE inc)
 enable_testing()

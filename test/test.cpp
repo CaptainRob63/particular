@@ -8,16 +8,70 @@
 
 int main(void) {
 
-    TEST(Array, print) {
-
+    TEST(Array, print) 
+    {
         Array<int> arr;
         for (int i = 0; i <= 10; i++)
             arr.insert(i);
         
         std::stringstream out; 
         out << arr;
-        EXPECT_EQ(std::string("1, 2, 3, 4, 5, 6, 7, 8, 9, 10"), out.str()) << "kiiras rossz";
+        EXPECT_EQ(std::string("0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10"), out.str())
+        << "kiiras rossz\n";
+    } END
+
+    TEST(Array, insert1) 
+    {
+        Array<char> arr;
+        arr.insert('I');
+        arr.insert('n');
+        arr.insert('f');
+        arr.insert('o');
+        arr.insert('C');
+
+        std::stringstream out; 
+        arr.print(out, "");
+
+        EXPECT_EQ(std::string("InfoC"), out.str())
+        << "insert rossz formatum\n";
+
 
     } END
+
+    TEST(Array, insert2)
+    {
+        Array<int> arr;
+        for (size_t i = 0; i < 32; i++) {
+            arr.insert(i);
+        }
+
+        std::stringstream out;
+        out << arr;
+
+        std::stringstream check;
+        for (size_t i = 0; i < 32; i++) {
+            check << i << ", ";
+        }
+    } END
+
+    /*
+    TEST(Array, remove)
+    {
+        Array<int> arr;
+        for(int i = 0; i <= 100; i++)
+            arr.insert(i);
+
+        std::stringstream arrayStr;
+        for(int i = 0; i <= 100; i++)
+            arrayStr << arr;
+
+        std::stringstream checkStr;
+        for(int i = 0; i <= 99; i++)
+            checkStr << i << ", ";
+        checkStr << 100;
+
+        EXPECT_EQ(arrayStr.str(), checkStr.str());
+    } END
+     */
 
 }

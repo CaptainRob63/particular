@@ -29,6 +29,41 @@ private:
             data[i] = other.data[i];
     }
 
+    /**
+     * @brief double allocated capacity of array 
+     * 
+     */
+    void doubleCapacity() 
+    {
+        if (size < capacity) throw std::length_error("Too few elements to double capacity");
+        T* temp = new T[capacity * 2];
+
+        for(size_t i = 0; i < size; i++)
+            temp[i] = data[i];
+
+        delete[] data;
+        data = temp;
+    }
+    
+    /**
+     * @brief halve allocated capacity of array 
+     * 
+     */
+    void halveCapacity() 
+    {
+        if (size > capacity / 2) throw std::length_error("Too many elements to halve capacity");
+        if (capacity <= 2) return;
+
+        T* temp = new T[capacity / 2];
+
+        for(size_t i = 0; i < size; i++)
+            temp[i] = data[i];
+
+        delete[] data;
+        data = temp;
+    }
+
+
 public:
     /**
      * @brief Constructor
@@ -101,6 +136,21 @@ public:
     }
 
     /**
+     * @brief print array elements in order with separator string 
+     * 
+     * @param os std::ostream to print to
+     * @param separator string that separates elements
+     */
+    void print(std::ostream& os, const char* separator) const
+    {
+        for (size_t i = 0; i < size; ++i) {
+            os << data[i];
+            if (i < size - 1) os << separator;
+        }
+    }
+
+
+    /**
      * @brief Insert an element at a specific index
      * 
      * @param elem Element to insert
@@ -137,6 +187,7 @@ public:
     void remove(size_t idx) 
     {
         if (idx >= size) throw std::out_of_range("Remove index out of bounds");
+        if (size < capacity/2) halveCapacity();
 
         for (size_t i = idx; i < size - 1; ++i) {
             data[i] = data[i + 1];
@@ -150,8 +201,7 @@ public:
      */
     void remove() 
     {
-        if (size == 0) throw std::underflow_error("Array is empty");
-        size--;
+        remove(size - 1);
     }
 
     /**
@@ -185,11 +235,9 @@ public:
  * @return std::ostream& Reference to output stream
  */
 template<typename T>
-std::ostream& operator<<(std::ostream& os, const Array<T>& arr) {
-    for (size_t i = 0; i < arr.getSize(); ++i) {
-        os << arr[i];
-        if (i < arr.getSize() - 1) os << ", ";
-    }
+std::ostream& operator<<(std::ostream& os, const Array<T>& arr)
+{
+    arr.print(os, ", ");
     return os;
 }
 
