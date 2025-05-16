@@ -42,6 +42,7 @@ private:
             temp[i] = data[i];
 
         delete[] data;
+        capacity *= 2;
         data = temp;
     }
     
@@ -159,7 +160,8 @@ public:
     void insert(const T& elem, size_t idx) 
     {
         if (idx > size) throw std::out_of_range("Insert index out of bounds");
-        if (size >= capacity) doubleCapacity(); 
+        if (size >= capacity) 
+            doubleCapacity(); 
 
         for (size_t i = size; i > idx; i--) {
             data[i] = data[i - 1];

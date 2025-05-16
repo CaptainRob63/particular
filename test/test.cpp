@@ -1,10 +1,12 @@
 #include "gtest_lite.h"
+#include "memtrace.h"
 #include "Array.hpp"
 
 #include <iostream>
 #include <stdexcept>
 #include <sstream>
 
+#define MEMTRACE
 
 int main(void) {
 
@@ -49,29 +51,33 @@ int main(void) {
         out << arr;
 
         std::stringstream check;
-        for (size_t i = 0; i < 32; i++) {
+        for (size_t i = 0; i < 31; i++) {
             check << i << ", ";
         }
+        check << 31;
+
+        EXPECT_EQ(check.str(), out.str())
+        << "insert rossz vagy nem bovul\n";
+
     } END
 
-    /*
+    
     TEST(Array, remove)
     {
-        Array<int> arr;
+        Array<int> arr; 
         for(int i = 0; i <= 100; i++)
             arr.insert(i);
-
+        
         std::stringstream arrayStr;
-        for(int i = 0; i <= 100; i++)
-            arrayStr << arr;
+        arrayStr << arr;
 
         std::stringstream checkStr;
         for(int i = 0; i <= 99; i++)
             checkStr << i << ", ";
         checkStr << 100;
 
-        EXPECT_EQ(arrayStr.str(), checkStr.str());
+        EXPECT_EQ(checkStr.str(), arrayStr.str());
+
     } END
-     */
 
 }
