@@ -123,7 +123,7 @@ public:
      */
     T& operator[](size_t idx) 
     {
-        if (idx >= size) throw std::out_of_range("Index out of range");
+        if (idx >= size) throw std::out_of_range("Index out of size");
 
         return data[idx];
     }
@@ -137,7 +137,7 @@ public:
      */
     const T& operator[](size_t idx) const 
     {
-        if (idx >= size) throw std::out_of_range("Index out of range");
+        if (idx >= size) throw std::out_of_range("Index out of size");
         return data[idx];
     }
 

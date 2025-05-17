@@ -84,19 +84,52 @@ int main(void) {
         arrayStr.str("");
         arrayStr << arr;
     
-        EXPECT_EQ("0, 1, 2, 3, 4, 5, 6, 7, 8, 9", arrayStr.str());
+        EXPECT_EQ("0, 1, 2, 3, 4, 5, 6, 7, 8, 9", arrayStr.str()) 
+        << "remove rossz\n";
 
     } END
 
-    TEST(Array, copyconstructor)
+    TEST(Array, copy)
     {
-        Array<char> arr1;
+        Array<char> arr;
         for (int i = 0; i < 10; i++) {
-            arr1.insert('c');
+            arr.insert('c');
         }
-        Array<char> arr2(arr1);
 
-        EXPECT_EQ(arr1, arr2);
+        Array<char> arrConstruct(arr);
+        Array<char> arrAssign;
+        arrAssign = arr;
+
+        EXPECT_EQ(arr, arrConstruct) << "copy constructor rossz\n";
+        EXPECT_EQ(arr, arrAssign) << "copy assignment rossz\n";
  
+    } END
+
+    TEST(Array, operator[]) 
+    { 
+        Array<int> arr(10);
+        for (int i = 0; i < 10; i++)
+            arr.insert(i);
+
+        std::stringstream ss;
+        ss << arr;
+
+        EXPECT_EQ("0, 1, 2, 3, 4, 5, 6, 7, 8, 9", ss.str());
+
+        EXPECT_THROW(arr[10], std::out_of_range const&) << "operator[] exception rossz (pozitiv)\n";
+        EXPECT_THROW(arr[-1], std::out_of_range const&) << "operator[] exception rossz (negativ)\n";
+
+    } END
+
+    TEST(Array, operator==)
+    {
+        Array<int> arr(10);
+        for (int i = 0; i < 10; i++)
+            arr.insert(i);
+        
+        Array<int> copy(arr);
+
+        EXPECT_EQ(arr, copy) << "operator== rossz\n";
+
     } END
 }
