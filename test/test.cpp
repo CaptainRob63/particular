@@ -78,6 +78,25 @@ int main(void) {
 
         EXPECT_EQ(checkStr.str(), arrayStr.str());
 
+        for(int i = 0; i <= 90; i++) {
+            arr.remove();
+        }
+        arrayStr.str("");
+        arrayStr << arr;
+    
+        EXPECT_EQ("0, 1, 2, 3, 4, 5, 6, 7, 8, 9", arrayStr.str());
+
     } END
 
+    TEST(Array, copyconstructor)
+    {
+        Array<char> arr1;
+        for (int i = 0; i < 10; i++) {
+            arr1.insert('c');
+        }
+        Array<char> arr2(arr1);
+
+        EXPECT_EQ(arr1, arr2);
+ 
+    } END
 }

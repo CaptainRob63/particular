@@ -32,6 +32,7 @@ private:
     /**
      * @brief double allocated capacity of array 
      * 
+     * @throws std::length_error when the method was called on an array that is not full yet
      */
     void doubleCapacity() 
     {
@@ -49,6 +50,7 @@ private:
     /**
      * @brief halve allocated capacity of array 
      * 
+     * @throws std::length_error when more then half of capacity is still used
      */
     void halveCapacity() 
     {
@@ -114,6 +116,7 @@ public:
 
     /**
      * @brief Element access (non-const)
+     * @throws std::out_of_range when index is outside used array
      * 
      * @param idx Index
      * @return T& Reference to element
@@ -121,11 +124,13 @@ public:
     T& operator[](size_t idx) 
     {
         if (idx >= size) throw std::out_of_range("Index out of range");
+
         return data[idx];
     }
 
     /**
      * @brief Element access (const)
+     * @throws std::out_of_range when index is outside used array
      * 
      * @param idx Index
      * @return const T& Const reference to element
@@ -134,6 +139,19 @@ public:
     {
         if (idx >= size) throw std::out_of_range("Index out of range");
         return data[idx];
+    }
+
+    /**
+     * @brief element by element comparison
+     * 
+     * @param other array to compare
+     * @return bool
+     */
+    bool operator==(Array<T> other) {
+        if (size != other.size) return false;
+        for (size_t i = 0; i < size; i++)
+            if (data[i] != other[i]) return false;
+        return true;
     }
 
     /**
@@ -153,6 +171,7 @@ public:
 
     /**
      * @brief Insert an element at a specific index
+     * @throws std::out_of_range when index is outside used array
      * 
      * @param elem Element to insert
      * @param idx Index at which to insert
@@ -183,6 +202,7 @@ public:
 
     /**
      * @brief Remove element at a specific index
+     * @throws std::out_of_range when index is outside used array
      * 
      * @param idx Index to remove
      */
