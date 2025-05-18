@@ -30,11 +30,13 @@ int main(void) {
         arr.insert('f');
         arr.insert('o');
         arr.insert('C');
+        arr.insert('+');
+        arr.insert('+');
 
         std::stringstream out; 
         arr.print(out, "");
 
-        EXPECT_EQ(std::string("InfoC"), out.str())
+        EXPECT_EQ(std::string("InfoC++"), out.str())
         << "insert rossz formatum\n";
 
 
