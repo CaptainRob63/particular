@@ -2,21 +2,28 @@
 #include "Vector.h"
 #include "Simulation.hpp"
 
-    Particle::Particle(const Simulation& sim, Vector position, Vector velocity, double m)
-        : simulation(sim), pos(position), vel(velocity), mass(m)
+    Particle::Particle(Vector position, Vector velocity, double m)
+        : pos(position), vel(velocity), mass(m)
     {
 
     } 
 
     Particle::Particle(const Particle& other) 
-        : pos(other.pos), vel(other.vel), mass(other.mass), simulation(other.simulation)
+        : pos(other.pos), vel(other.vel), mass(other.mass) 
     {
 
     }
 
-    Particle& Particle::operator=(const Particle&) {}   
+    Particle& Particle::operator=(const Particle& other) {
+        pos = other.pos;
+        vel = other.vel;
+        mass = other.mass;
+    }   
 
     Particle::~Particle() {}
 
-    Vector Particle::calcForces() {}
-    void Particle::addVelocity(Vector deltaV) {}
+    Vector Particle::forceWith(const Particle& other) {}
+ 
+    void Particle::applyForce(Vector force) {
+        vel += force/mass;
+    }

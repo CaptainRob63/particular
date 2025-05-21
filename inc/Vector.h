@@ -10,6 +10,9 @@ struct Vector {
 
     Vector operator+(Vector);
     Vector operator-(Vector);
+    Vector operator*(double);
+    Vector operator/(double);
+    Vector operator+=(Vector);
 };
 
 #endif // VECTOR_H

@@ -12,8 +12,6 @@ class Particle
     Vector vel;
     double mass;
 
-    // each particle necessarily belongs to a simulation instance
-    const Simulation& simulation;
 public:
 
     /**
@@ -24,8 +22,7 @@ public:
      * @param velocity velocity of particle
      * @param m mass of particle
      */
-    Particle(const Simulation& sim,
-             Vector position = Vector(0,0,0),
+    Particle(Vector position = Vector(0,0,0),
              Vector velocity = Vector(0,0,0),
              double m = 1); 
 
@@ -45,16 +42,19 @@ public:
     virtual ~Particle();
 
     /**
-     * @brief calculates force acting on particle based on the simulation instance it belongs to
+     * @brief calculates force between two particles. pure virtual 
+     * 
+     * @param other other particle
+     * @return Vector force vector
      */
-    virtual Vector calcForces();
+    virtual Vector forceWith(const Particle& other) = 0;
 
     /**
-     * @brief adds velocity deltaV to velocity vector of particle
+     * @brief applies force to particle
      * 
-     * @param deltaV velocity to add to particle velocity
-     */
-    void addVelocity(Vector deltaV);
+     * @param force force to apply
+     **/
+    void applyForce(Vector force);
 };
 
 /**
