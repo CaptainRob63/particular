@@ -28,7 +28,8 @@ void Particle::applyForce(Vector force)
 
 std::ostream& operator<<(std::ostream& os, const Particle& p) 
 {
-    os << p.mass
+    os << p.getMass() << std::endl;
+    os << p.getPos().x << " " << p.getPos().y << " " << p.getPos().z << std::endl;
 
     return os;
 }

@@ -49,7 +49,11 @@ public:
      */
     Vector getPos() const { return pos; }
 
-    
+    /**
+     * @brief velocity getter
+     * 
+     * @return Vector vel attribute
+     */
     Vector getVel() const { return vel; }
 
     /**
