@@ -1,6 +1,7 @@
 #include "gtest_lite.h"
 #include "memtrace.h"
 #include "Array.hpp"
+#include "Vector.h"
 
 #include <iostream>
 #include <stdexcept>
@@ -132,5 +133,19 @@ int main(void) {
 
         EXPECT_EQ(arr, copy) << "operator== rossz\n";
 
+    } END
+
+
+    TEST(Vector, all) 
+    {
+        Vector vec1(1, 2, 3);
+        Vector vec2(3, 4, 0);
+        Vector vecD(1.2, 3.4, 5.6); 
+
+        EXPECT_FLOAT_EQ(5.0, vec2.size());
+        EXPECT_EQ(Vector(4, 6, 3), vec1+vec2);
+        EXPECT_EQ(Vector(1.8, 0.6, -5.6), vec2-vecD);
+        EXPECT_EQ(Vector())
+        
     } END
 }

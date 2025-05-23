@@ -75,16 +75,21 @@ public:
      * @param force force to apply
      **/
     void applyForce(Vector force);
-};
 
-/**
- * @brief print to ostream 
- * 
- * @param os std::ostream to stream to
- * @param p particle to print
- * 
- * @return std::ostream& 
- */
-std::ostream& operator<<(std::ostream& os, Particle p);
+    /**
+     * @brief write to ostream 
+     * 
+     * @param os std::ostream to write to
+     */
+    virtual void write(std::ostream& os) const;
+
+    /**
+     * @brief read from ostream 
+     * 
+     * @param is std::istream to read from
+     */
+    virtual void read(std::istream is);
+
+};
 
 #endif

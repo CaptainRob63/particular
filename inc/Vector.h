@@ -25,6 +25,14 @@ struct Vector {
     double size();
 
     /**
+     * @brief field by field equality 
+     * 
+     * @param other vector to compare
+     * @return bool 
+     */
+    bool operator==(Vector other);
+
+    /**
      * @brief vector addition
      * 
      * @param other vector to sum with

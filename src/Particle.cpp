@@ -25,11 +25,15 @@ void Particle::applyForce(Vector force)
     vel = vel + force/mass;
 }
 
-
-std::ostream& operator<<(std::ostream& os, const Particle& p) 
+void Particle::write(std::ostream& os) const
 {
-    os << p.getMass() << std::endl;
-    os << p.getPos().x << " " << p.getPos().y << " " << p.getPos().z << std::endl;
+    os << mass << std::endl;
+    os << pos.x << " " << pos.y << " " << pos.z << std::endl;
+}
 
-    return os;
+void Particle::read(std::istream is) 
+{
+    double temp;
+    (is >> temp).ignore(1);
+    (is >> pos.x >> pos.y >> pos.z).ignore(1);
 }
