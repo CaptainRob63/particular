@@ -2,8 +2,6 @@
 #define PARTICLE_HPP
 
 #include "Vector.h"
-#include "Simulation.hpp"
-
 #include <ostream>
 
 class Particle 
@@ -11,6 +9,11 @@ class Particle
     Vector pos;
     Vector vel;
     double mass;
+
+    /**
+     * @brief copy assignment
+     */
+    Particle& operator=(const Particle&);    
 
 public:
 
@@ -57,17 +60,12 @@ public:
     Vector getVel() const { return vel; }
 
     /**
-     * @brief copy assignment
-     */
-    Particle& operator=(const Particle&);    
-
-    /**
-     * @brief calculates force between two particles. pure virtual 
+     * @brief calculates force between two particles.
      * 
      * @param other other particle
      * @return Vector force vector
      */
-    virtual Vector forceWith(const Particle& other) = 0;
+    virtual Vector forceWith(const Particle& other) { return Vector(0,0,0); }
 
     /**
      * @brief applies force to particle

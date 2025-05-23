@@ -1,6 +1,9 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+#include <iostream>
+
+
 /**
  * @brief physics type vector3d 
  * 
@@ -64,5 +67,9 @@ struct Vector {
      */
     Vector operator/(double scalar);
 };
+
+//gtest
+std::ostream& operator<<(std::ostream& os, Vector v); 
+
 
 #endif // VECTOR_H

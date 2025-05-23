@@ -2,6 +2,7 @@
 #include "memtrace.h"
 #include "Array.hpp"
 #include "Vector.h"
+#include "Particle.hpp"
 
 #include <iostream>
 #include <stdexcept>
@@ -145,7 +146,19 @@ int main(void) {
         EXPECT_FLOAT_EQ(5.0, vec2.size());
         EXPECT_EQ(Vector(4, 6, 3), vec1+vec2);
         EXPECT_EQ(Vector(1.8, 0.6, -5.6), vec2-vecD);
-        EXPECT_EQ(Vector())
+        EXPECT_EQ(Vector(2.4, 6.8, 11.2), vecD*2);
+        EXPECT_EQ(Vector(1.5, 2, 0), vec2/2);
+    } END
+
+    TEST(Particle, all) 
+    {
+        Particle p(Vector(0,0,0), Vector(0,0,0), 1);
         
+        EXPECT_EQ(1, p.getMass());
+        EXPECT_EQ(Vector(0,0,0), p.getPos());
+        EXPECT_EQ(Vector(0,0,0), p.getVel());
+
+        p.applyForce(Vector(1,1,1));
+        EXPECT_EQ(Vector(1,1,1), p.getPos()); 
     } END
 }
