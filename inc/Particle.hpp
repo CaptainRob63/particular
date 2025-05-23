@@ -31,14 +31,31 @@ public:
     Particle(const Particle&);
 
     /**
-     * @brief copy assignment
-     */
-    Particle& operator=(const Particle&);    
-
-    /**
      * @brief virtual destructor
      */
     virtual ~Particle();
+
+    /**
+     * @brief mass getter 
+     * 
+     * @return double mass attribute
+     */
+    double getMass() const { return mass; }    
+
+    /**
+     * @brief position getter
+     * 
+     * @return Vector position attribute
+     */
+    Vector getPos() const { return pos; }
+
+    
+    Vector getVel() const { return vel; }
+
+    /**
+     * @brief copy assignment
+     */
+    Particle& operator=(const Particle&);    
 
     /**
      * @brief calculates force between two particles. pure virtual 
@@ -59,10 +76,11 @@ public:
 /**
  * @brief print to ostream 
  * 
- * @param os 
- * @param pa 
+ * @param os std::ostream to stream to
+ * @param p particle to print
+ * 
  * @return std::ostream& 
  */
-std::ostream& operator<<(std::ostream& os, ParticleArray pa);
+std::ostream& operator<<(std::ostream& os, Particle p);
 
 #endif

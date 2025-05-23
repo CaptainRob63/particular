@@ -1,11 +1,12 @@
 #ifndef SIMULATION_HPP
 #define SIMULATION_HPP
 
-#include "ParticleArray.hpp"
+#include "Array.hpp"
+#include "Particle.hpp"
 class Simulation {
-    ParticleArray particles;
+    Array<Particle> particles;
 public:
-    Simulation(ParticleArray pa);
+    Simulation(Array<Particle> pa);
     Simulation(const Simulation& sim);
     Simulation& operator=(const Simulation& sim);
 

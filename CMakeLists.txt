@@ -8,13 +8,15 @@ set(SOURCES src/Particle.cpp
             src/Vector.cpp
             src/memtrace.cpp
             )
-add_compile_definitions(MEMTRACE)
 
 # main bin
 add_executable(Particular src/main.cpp ${SOURCES})
 
 # includes
 target_include_directories(Particular PRIVATE inc)
+
+# definitions
+add_compile_definitions(MEMTRACE)
 
 # testing
 
