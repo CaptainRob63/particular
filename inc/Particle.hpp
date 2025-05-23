@@ -17,7 +17,6 @@ public:
     /**
      * @brief constructor
      * 
-     * @param sim simulation particle belongs to
      * @param position position of particle
      * @param velocity velocity of particle
      * @param m mass of particle

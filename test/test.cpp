@@ -6,7 +6,6 @@
 #include <stdexcept>
 #include <sstream>
 
-#define MEMTRACE
 
 int main(void) {
 

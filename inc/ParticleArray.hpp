@@ -6,7 +6,7 @@
 #include "Simulation.hpp"
 
 
-class ParticleArray : Array<Particle> {
+class ParticleArray : public Array<Particle> {
     const Simulation& simulation;
 };
 

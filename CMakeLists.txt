@@ -6,7 +6,9 @@ add_compile_options(-Wall -Werror -pedantic -g)
 # main source files
 set(SOURCES src/Particle.cpp
             src/Vector.cpp
+            src/memtrace.cpp
             )
+add_compile_definitions(MEMTRACE)
 
 # main bin
 add_executable(Particular src/main.cpp ${SOURCES})
@@ -18,7 +20,7 @@ target_include_directories(Particular PRIVATE inc)
 
     # test sources
     set(TEST_SOURCES test/test.cpp
-                     test/memtrace.cpp)
+                     )
     
     # test bin
     add_executable(Test ${SOURCES} ${TEST_SOURCES})

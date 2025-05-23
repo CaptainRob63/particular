@@ -5,6 +5,8 @@
 #include <iostream>
 #include <stdexcept>
 
+#include "memtrace.h"
+
 /**
  * @brief Generic dynamic array class template
  * 

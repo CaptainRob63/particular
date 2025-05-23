@@ -18,12 +18,11 @@
         pos = other.pos;
         vel = other.vel;
         mass = other.mass;
+        return *this;
     }   
 
     Particle::~Particle() {}
 
-    Vector Particle::forceWith(const Particle& other) {}
- 
     void Particle::applyForce(Vector force) {
-        vel += force/mass;
+        vel = vel + force/mass;
     }
