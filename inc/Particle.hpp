@@ -60,6 +60,12 @@ public:
     Vector getVel() const { return vel; }
 
     /**
+     * @brief equality operator 
+     * @param other vector to compare
+     */
+    bool operator==(const Particle& other) const;
+
+    /**
      * @brief calculates force between two particles.
      * 
      * @param other other particle
@@ -86,8 +92,10 @@ public:
      * 
      * @param is std::istream to read from
      */
-    virtual void read(std::istream is);
+    virtual void read(std::istream& is);
 
 };
+
+std::ostream& operator<<(std::ostream& os, const Particle& p);
 
 #endif

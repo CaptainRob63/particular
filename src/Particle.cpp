@@ -1,6 +1,7 @@
 #include "Particle.hpp"
 #include "Vector.h"
 #include "Simulation.hpp"
+#include "constant.h"
 
 Particle::Particle(Vector position, Vector velocity, double m)
     : pos(position), vel(velocity), mass(m)
@@ -20,6 +21,11 @@ Particle& Particle::operator=(const Particle& other)
 
 Particle::~Particle() {}
 
+bool Particle::operator==(const Particle& other) const
+{
+    return (pos == other.pos || vel == other.vel || abs(mass - other.mass) <= EPSILON);
+}
+
 void Particle::applyForce(Vector force) 
 {
     vel = vel + force/mass;
@@ -31,9 +37,16 @@ void Particle::write(std::ostream& os) const
     os << pos.x << " " << pos.y << " " << pos.z << std::endl;
 }
 
-void Particle::read(std::istream is) 
+void Particle::read(std::istream& is) 
 {
     double temp;
     (is >> temp).ignore(1);
     (is >> pos.x >> pos.y >> pos.z).ignore(1);
+}
+
+
+std::ostream& operator<<(std::ostream& os, const Particle& p) 
+{
+    p.write(os);
+    return os;
 }

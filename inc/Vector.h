@@ -33,7 +33,7 @@ struct Vector {
      * @param other vector to compare
      * @return bool 
      */
-    bool operator==(Vector other);
+    bool operator==(const Vector other) const;
 
     /**
      * @brief vector addition
@@ -41,7 +41,7 @@ struct Vector {
      * @param other vector to sum with
      * @return Vector sum of vectors
      */
-    Vector operator+(Vector other);
+    Vector operator+(const Vector other) const;
 
     /**
      * @brief vector subtraction
@@ -49,7 +49,7 @@ struct Vector {
      * @param vector to subtract
      * @return Vector difference of vectors
      */
-    Vector operator-(Vector other);
+    Vector operator-(const Vector other) const;
     
     /**
      * @brief scalar multiplication
@@ -57,7 +57,7 @@ struct Vector {
      * @param scalar scalar to multiply vector by
      * @return Vector scaled vector
      */
-    Vector operator*(double scalar);
+    Vector operator*(const double scalar) const;
 
     /**
      * @brief scalar division 
@@ -65,7 +65,7 @@ struct Vector {
      * @param scalar scalar to divide by
      * @return Vector scaled vector
      */
-    Vector operator/(double scalar);
+    Vector operator/(const double scalar) const;
 };
 
 //gtest

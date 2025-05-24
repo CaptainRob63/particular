@@ -159,6 +159,13 @@ int main(void) {
         EXPECT_EQ(Vector(0,0,0), p.getVel());
 
         p.applyForce(Vector(1,1,1));
-        EXPECT_EQ(Vector(1,1,1), p.getPos()); 
+        EXPECT_EQ(Vector(1,1,1), p.getVel()); 
+
+        std::stringstream os;
+        p.write(os);
+        Particle pcop;
+        pcop.read(os);
+
+        EXPECT_EQ(p, pcop);
     } END
 }
