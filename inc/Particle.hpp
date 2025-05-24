@@ -4,6 +4,10 @@
 #include "Vector.h"
 #include <ostream>
 
+/**
+ * @brief non-interacting particle class. 
+ * 
+ */
 class Particle 
 {
     Vector pos;
@@ -96,6 +100,13 @@ public:
 
 };
 
+/**
+ * @brief print to ostream operator<< (just for gtest_lite) 
+ * 
+ * @param os std::ostream to print to
+ * @param p particle const& to print
+ * @return std::ostream& for chaining
+ */
 std::ostream& operator<<(std::ostream& os, const Particle& p);
 
 #endif

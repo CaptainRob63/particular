@@ -2,12 +2,15 @@
 #define EMPARTICLE_HPP
 
 #include "GravityParticle.hpp"
+#include "Particle.hpp"
 
 class EMParticle : GravityParticle {
 protected:
     double charge;
 public:
-    virtual Vector calcForces();
+    
+
+    virtual Vector forceWith(const Particle& other) const;
 };
 
 
