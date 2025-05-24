@@ -4,6 +4,8 @@
 #include "Vector.h"
 #include "Particle.hpp"
 #include "GravityParticle.hpp"
+#include "EMParticle.hpp"
+#include "Simulation.hpp"
 
 #include <iostream>
 #include <stdexcept>
@@ -181,10 +183,37 @@ int main(void) {
 
         EXPECT_EQ(Vector(1,0,0), gp1.forceWith(gp2));
         EXPECT_EQ(Vector(-1,0,0), gp2.forceWith(gp1));
+
+        Particle* p1 = &gp1;
+        Particle* p2 = &gp2;
+
+        EXPECT_EQ(Vector(1,0,0), p1->forceWith(*p2));
+        EXPECT_EQ(Vector(-1,0,0), p2->forceWith(*p1));
     } END
 
     TEST(EMParticle, all)
     {
+        Vector v1(3,3,3);
+        Vector v2(4,3,3);
 
+        EMParticle gp1(v1, v1, 1, 1, false);
+        EMParticle gp2(v2, v1, 1, 1, false);
+
+        EXPECT_EQ(Vector(1,0,0), gp1.forceWith(gp2));
+        EXPECT_EQ(Vector(-1,0,0), gp2.forceWith(gp1));
+
+        Particle* p1 = &gp1;
+        Particle* p2 = &gp2;
+
+        EXPECT_EQ(Vector(1,0,0), p1->forceWith(*p2));
+        EXPECT_EQ(Vector(-1,0,0), p2->forceWith(*p1));
+    } END
+
+    TEST(Simulation, all) 
+    {
+        Simulation sim;
+        GravityParticle gp1(Vector(0,0,0), Vector(0,0,0), 1, true);
+        GravityParticle gp2(Vector(1,0,0), Vector(0,0,0), 1, true);
+        sim.particles.insert(gp1)
     } END
 }

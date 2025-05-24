@@ -8,6 +8,7 @@ set(SOURCES src/Particle.cpp
             src/Vector.cpp
             src/memtrace.cpp
             src/GravityParticle.cpp
+            src/EMParticle.cpp
             )
 
 # main bin

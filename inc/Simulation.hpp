@@ -4,15 +4,21 @@
 #include "Array.hpp"
 #include "Particle.hpp"
 class Simulation {
+    double time;
     Array<Particle> particles;
 public:
-    Simulation(Array<Particle> pa);
-    Simulation(const Simulation& sim);
-    Simulation& operator=(const Simulation& sim);
+    
+    /**
+     * @brief simulation constructor
+     */
+    Simulation();
 
-    void addParticle(Particle p);
-    void removeParticle(size_t idx);
-    void step();
+    /**
+     * @brief steps the simulation a set time
+     * 
+     * @param t time to step
+     */
+    void step(double t);
 };
 
 #endif

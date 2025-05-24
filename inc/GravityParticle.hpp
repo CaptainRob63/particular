@@ -6,7 +6,7 @@
 /**
  * @brief gravity interacting particle with overwritten forceWith() 
  */
-class GravityParticle : Particle {
+class GravityParticle : public Particle {
 protected:
     bool isGravityInteracting;
 public:
@@ -25,6 +25,13 @@ public:
                     bool grav = false);
 
     
+    /**
+     * @brief grav getter
+     * 
+     * @return grav 
+     */
+    bool getGrav() const { return isGravityInteracting; } 
+
     /**
      * @brief gravity force calculation 
      * 

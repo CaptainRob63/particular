@@ -8,7 +8,7 @@ GravityParticle::GravityParticle(Vector pos, Vector vel, double mass, bool grav)
 Vector GravityParticle::forceWith(const GravityParticle& other) const
 {
     // interaction is both ways
-    if (other.isGravityInteracting == false) return Vector(0,0,0);
+    if (!other.isGravityInteracting || !isGravityInteracting) return Vector(0,0,0);
 
     Vector diff(other.getPos() - getPos());
     double r = diff.size();

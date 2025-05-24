@@ -85,6 +85,13 @@ public:
     void applyForce(Vector force);
 
     /**
+     * @brief move the particle based on its velocity vector 
+     * 
+     * @param time how much time to move the particle for
+     */
+    void step(double time);
+
+    /**
      * @brief write to ostream 
      * 
      * @param os std::ostream to write to

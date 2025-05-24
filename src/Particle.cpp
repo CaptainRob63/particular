@@ -31,6 +31,12 @@ void Particle::applyForce(Vector force)
     vel = vel + force/mass;
 }
 
+
+void Particle::step(double time) 
+{
+    pos = pos + vel*time;
+}
+
 void Particle::write(std::ostream& os) const
 {
     os << mass << std::endl;
