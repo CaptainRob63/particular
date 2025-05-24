@@ -75,7 +75,7 @@ public:
      * @param other other particle
      * @return Vector force vector
      */
-    virtual Vector forceWith(const Particle& other) { return Vector(0,0,0); }
+    Vector forceWith(const Particle& other) { return Vector(0,0,0); }
 
     /**
      * @brief applies force to particle

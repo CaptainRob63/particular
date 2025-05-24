@@ -3,6 +3,7 @@
 #include "Array.hpp"
 #include "Vector.h"
 #include "Particle.hpp"
+#include "GravityParticle.hpp"
 
 #include <iostream>
 #include <stdexcept>
@@ -167,5 +168,23 @@ int main(void) {
         pcop.read(os);
 
         EXPECT_EQ(p, pcop);
+    } END
+
+
+    TEST(GravityParticle, all)
+    {
+        Vector v1(3,3,3);
+        Vector v2(4,3,3);
+
+        GravityParticle gp1(v1, v1, 1, true);
+        GravityParticle gp2(v2, v1, 1, true);
+
+        EXPECT_EQ(Vector(1,0,0), gp1.forceWith(gp2));
+        EXPECT_EQ(Vector(-1,0,0), gp2.forceWith(gp1));
+    } END
+
+    TEST(EMParticle, all)
+    {
+
     } END
 }
