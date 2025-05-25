@@ -4,6 +4,21 @@ Simulation::Simulation()
     : time(0)
 {}
 
+void Simulation::listParticles(std::ostream& os)
+{
+    particles.print(os, "\n");
+}
+
+void Simulation::addParticle(Particle p)
+{
+    particles.insert(p);
+}
+
+void Simulation::removeParticle(size_t idx)
+{
+    particles.remove(idx);
+}
+
 void Simulation::step(double time) 
 {
     for (size_t i = 0; i < particles.getSize(); ++i)

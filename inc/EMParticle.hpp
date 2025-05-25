@@ -40,6 +40,21 @@ public:
      * @return Vector force pointing towards other 
      */
     Vector forceWith(const EMParticle& other) const;
+
+
+    /**
+     * @brief overwritten GravityParticle write method
+     * 
+     * @param os std::ostream to write to
+     */
+    virtual void write(std::ostream& os) const;
+
+    /**
+     * @brief overwritten GravityParticle read method 
+     * 
+     * @param is std::istream to read from
+     */
+    virtual void read(std::istream& is);
 };
 
 

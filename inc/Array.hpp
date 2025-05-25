@@ -15,7 +15,7 @@
 template<typename T>
 class Array {
 private:
-    T* data;              
+    T** data;              
     size_t size;          
     size_t capacity;      
 
@@ -26,9 +26,11 @@ private:
      */
     void deepCopy(const Array& other) 
     {
-        data = new T[capacity];
-        for (size_t i = 0; i < size; ++i)
-            data[i] = other.data[i];
+        data = new T*[capacity];
+        for (size_t i = 0; i < size; ++i) 
+        {
+            data[i] = new T(*other.data[i]);
+        }
     }
 
     /**
@@ -39,7 +41,7 @@ private:
     void doubleCapacity() 
     {
         if (size < capacity) throw std::length_error("Too few elements to double capacity");
-        T* temp = new T[capacity * 2];
+        T** temp = new T*[capacity * 2];
 
         for(size_t i = 0; i < size; i++)
             temp[i] = data[i];
@@ -59,7 +61,7 @@ private:
         if (size > capacity / 2) throw std::length_error("Too many elements to halve capacity");
         if (capacity <= 2) return;
 
-        T* temp = new T[capacity / 2];
+        T** temp = new T*[capacity / 2];
 
         for(size_t i = 0; i < size; i++)
             temp[i] = data[i];
@@ -78,7 +80,7 @@ public:
     Array(size_t cap = 16)
         : data(nullptr), size(0), capacity(cap) 
     {
-        data = new T[capacity];
+        data = new T*[capacity];
     }
 
     /**
@@ -101,10 +103,15 @@ public:
     Array& operator=(const Array& other) 
     {
         if (this == &other) return *this;
+        
+        for (size_t i = 0; i < size; i++)
+            delete data[i];
         delete[] data;
+
         size = other.size;
         capacity = other.capacity;
         deepCopy(other);
+
         return *this;
     }
 
@@ -113,6 +120,8 @@ public:
      */
     ~Array() 
     {
+        for (size_t i = 0; i < size; i++)
+            delete data[i];
         delete[] data;
     }
 
@@ -126,8 +135,7 @@ public:
     T& operator[](size_t idx) 
     {
         if (idx >= size) throw std::out_of_range("Index out of size");
-
-        return data[idx];
+        return *data[idx];
     }
 
     /**
@@ -140,7 +148,7 @@ public:
     const T& operator[](size_t idx) const 
     {
         if (idx >= size) throw std::out_of_range("Index out of size");
-        return data[idx];
+        return *data[idx];
     }
 
     /**
@@ -149,10 +157,13 @@ public:
      * @param other array to compare
      * @return bool
      */
-    bool operator==(Array<T> other) {
+    bool operator==(Array<T> other) 
+    {
         if (size != other.size) return false;
+
         for (size_t i = 0; i < size; i++)
-            if (data[i] != other[i]) return false;
+            if (*data[i] != *other.data[i]) return false;
+
         return true;
     }
 
@@ -165,7 +176,7 @@ public:
     void print(std::ostream& os, const char* separator) const
     {
         for (size_t i = 0; i < size; ++i) {
-            os << data[i];
+            os << *data[i];
             if (i < size - 1) os << separator;
         }
     }
@@ -185,10 +196,10 @@ public:
             doubleCapacity(); 
 
         for (size_t i = size; i > idx; i--) {
-            data[i] = data[i - 1];
+            *data[i] = *data[i - 1];
         }
 
-        data[idx] = elem;
+        data[idx] = new T(elem);
         size++;
     }
 
@@ -212,6 +223,8 @@ public:
     {
         if (idx >= size) throw std::out_of_range("Remove index out of bounds");
         if (size < capacity/2) halveCapacity();
+
+        delete data[idx];
 
         for (size_t i = idx; i < size - 1; ++i) {
             data[i] = data[i + 1];

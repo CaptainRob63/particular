@@ -21,3 +21,15 @@ Vector EMParticle::forceWith(const EMParticle& other) const
    force = force + dir * ((K*charge*other.charge) / r*r);
    return force;
 }
+
+void EMParticle::write(std::ostream& os) const
+{
+    GravityParticle::write(os);
+    os << charge << std::endl;
+}
+
+void EMParticle::read(std::istream& is) 
+{
+    GravityParticle::read(is);
+    (is >> charge).ignore(1);
+}

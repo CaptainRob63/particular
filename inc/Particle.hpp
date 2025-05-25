@@ -14,11 +14,6 @@ class Particle
     Vector vel;
     double mass;
 
-    /**
-     * @brief copy assignment
-     */
-    Particle& operator=(const Particle&);    
-
 public:
 
     /**
@@ -41,6 +36,11 @@ public:
      * @brief virtual destructor
      */
     virtual ~Particle();
+    
+    /**
+     * @brief copy assignment
+     */
+    Particle& operator=(const Particle&);    
 
     /**
      * @brief mass getter 
