@@ -13,6 +13,8 @@ class Particle
     Vector pos;
     Vector vel;
     double mass;
+    double charge;
+    bool isGravityInteracting;
 
 public:
 
@@ -25,7 +27,9 @@ public:
      */
     Particle(Vector position = Vector(0,0,0),
              Vector velocity = Vector(0,0,0),
-             double m = 1); 
+             double m = 1,
+             double ch = 0,
+             bool grav = false); 
 
     /**
      * @brief copy constructor
@@ -49,6 +53,20 @@ public:
      */
     double getMass() const { return mass; }    
 
+     /**
+     * @brief charge getter
+     * 
+     * @return double charge
+     */
+    double getCharge() const { return charge; }
+
+    /**
+     * @brief grav getter
+     * 
+     * @return grav 
+     */
+    bool getGrav() const { return isGravityInteracting; } 
+
     /**
      * @brief position getter
      * 
@@ -69,13 +87,15 @@ public:
      */
     bool operator==(const Particle& other) const;
 
+    bool operator!=(const Particle& other) const { return !operator==(other);}
+
     /**
      * @brief calculates force between two particles.
      * 
      * @param other other particle
      * @return Vector force vector
      */
-    virtual Vector forceWith(const Particle& other) { return Vector(0,0,0); }
+    Vector forceWith(const Particle& other) const; 
 
     /**
      * @brief applies force to particle
@@ -97,14 +117,14 @@ public:
      * 
      * @param os std::ostream to write to
      */
-    virtual void write(std::ostream& os) const;
+    void write(std::ostream& os) const;
 
     /**
      * @brief read from ostream 
      * 
      * @param is std::istream to read from
      */
-    virtual void read(std::istream& is);
+    void read(std::istream& is);
 
 };
 

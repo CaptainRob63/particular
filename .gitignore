@@ -2,3 +2,6 @@
 /.vscode
 /doxygen
 /CMakeFiles
+/sim.dat
+/beadas
+/specvegleges.odg

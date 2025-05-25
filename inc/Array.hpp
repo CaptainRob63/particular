@@ -157,7 +157,7 @@ public:
      * @param other array to compare
      * @return bool
      */
-    bool operator==(Array<T> other) 
+    bool operator==(const Array<T>& other) const 
     {
         if (size != other.size) return false;
 
@@ -167,20 +167,12 @@ public:
         return true;
     }
 
-    /**
-     * @brief print array elements in order with separator string 
-     * 
-     * @param os std::ostream to print to
-     * @param separator string that separates elements
-     */
-    void print(std::ostream& os, const char* separator) const
+    void print(std::ostream& os, const char* sep)
     {
-        for (size_t i = 0; i < size; ++i) {
-            os << *data[i];
-            if (i < size - 1) os << separator;
-        }
+        for (size_t i = 0; i < size-1; i++)
+            os << *data[i] << sep;
+        os << *data[size-1]; 
     }
-
 
     /**
      * @brief Insert an element at a specific index
@@ -261,6 +253,36 @@ public:
         return capacity;
     }
 
+    /**
+     * @brief array write to ostream
+     * 
+     * @param os ostream to write to
+     */
+    void write(std::ostream& os) const
+    {
+        os << size << std::endl;
+        for(size_t i = 0; i < size; i++)
+        {
+            data[1]->write(os);
+            os << std::endl;
+        }
+    }
+
+    /**
+     * @brief array read from istream 
+     * 
+     * @param is 
+     */
+    void read(std::istream& is)
+    {
+        (is >> size).ignore(1);
+        for(size_t i = 0; i < size; i++)
+        {
+            data[i]->read(is);
+            is.ignore(1);
+        }
+    }
+
 };
 
 /**
@@ -274,7 +296,11 @@ public:
 template<typename T>
 std::ostream& operator<<(std::ostream& os, const Array<T>& arr)
 {
-    arr.print(os, ", ");
+    for (size_t i = 0; i < arr.getSize(); i++)
+    {
+        os << " index :" << i << std::endl;
+        os << arr[i];
+    }
     return os;
 }
 

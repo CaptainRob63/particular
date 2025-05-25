@@ -3,8 +3,6 @@
 #include "Array.hpp"
 #include "Vector.h"
 #include "Particle.hpp"
-#include "GravityParticle.hpp"
-#include "EMParticle.hpp"
 #include "Simulation.hpp"
 
 #include <iostream>
@@ -21,7 +19,7 @@ int main(void) {
             arr.insert(new int(i));
         
         std::stringstream out; 
-        out << arr;
+        arr.print(out, ", ");
         EXPECT_EQ(std::string("0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10"), out.str())
         << "kiiras rossz\n";
     } END
@@ -54,7 +52,7 @@ int main(void) {
         }
 
         std::stringstream out;
-        out << arr;
+        arr.print(out, ", ");
 
         std::stringstream check;
         for (size_t i = 0; i < 31; i++) {
@@ -75,7 +73,7 @@ int main(void) {
             arr.insert(new int(i));
         
         std::stringstream arrayStr;
-        arrayStr << arr;
+        arr.print(arrayStr, ", ");
 
         std::stringstream checkStr;
         for(int i = 0; i <= 99; i++)
@@ -88,7 +86,7 @@ int main(void) {
             arr.remove();
         }
         arrayStr.str("");
-        arrayStr << arr;
+        arr.print(arrayStr, ", ");
     
         EXPECT_EQ("0, 1, 2, 3, 4, 5, 6, 7, 8, 9", arrayStr.str()) 
         << "remove rossz\n";
@@ -118,7 +116,7 @@ int main(void) {
             arr.insert(new int(i));
 
         std::stringstream ss;
-        ss << arr;
+        arr.print(ss, ", ");
 
         EXPECT_EQ("0, 1, 2, 3, 4, 5, 6, 7, 8, 9", ss.str());
 
@@ -173,13 +171,13 @@ int main(void) {
     } END
 
 
-    TEST(GravityParticle, all)
+    TEST(Particle, all)
     {
         Vector v1(3,3,3);
         Vector v2(4,3,3);
 
-        GravityParticle gp1(v1, v1, 1, true);
-        GravityParticle gp2(v2, v1, 1, true);
+        Particle gp1(v1, v1, 1, true);
+        Particle gp2(v2, v1, 1, true);
 
         EXPECT_EQ(Vector(1,0,0), gp1.forceWith(gp2));
         EXPECT_EQ(Vector(-1,0,0), gp2.forceWith(gp1));
@@ -190,18 +188,15 @@ int main(void) {
         EXPECT_EQ(Vector(1,0,0), p1->forceWith(p2));
         EXPECT_EQ(Vector(-1,0,0), p2.forceWith(*p1));
 
-        gp1.write(std::cout);
-        p2.write(std::cout);
-        std::cout << p2;
     } END
 
-    TEST(EMParticle, all)
+    TEST(Particle, all)
     {
         Vector v1(3,3,3);
         Vector v2(4,3,3);
 
-        EMParticle gp1(v1, v1, 1, 1, false);
-        EMParticle gp2(v2, v1, 1, 1, false);
+        Particle gp1(v1, v1, 1, 1, false);
+        Particle gp2(v2, v1, 1, 1, false);
 
         EXPECT_EQ(Vector(1,0,0), gp1.forceWith(gp2));
         EXPECT_EQ(Vector(-1,0,0), gp2.forceWith(gp1));
@@ -216,12 +211,19 @@ int main(void) {
     TEST(Simulation, all) 
     {
         Simulation sim;
-        GravityParticle gp1(Vector(0,0,0), Vector(0,0,0), 1, true);
-        GravityParticle gp2(Vector(1,0,0), Vector(0,0,0), 1, true);
-        sim.addParticle(new GravityParticle(gp1));
-        sim.addParticle(new GravityParticle(gp2));
+        Particle gp1(Vector(0,0,0), Vector(0,0,0), 1, 0, true);
+        Particle gp2(Vector(1,0,0), Vector(0,0,0), 1, 0, true);
+        sim.addParticle(new Particle(gp1));
+        sim.addParticle(new Particle(gp2));
         sim.listParticles(std::cout);
         sim.step(1);
         sim.listParticles(std::cout);
+
+        std::stringstream ss;
+        sim.write(ss);
+        Simulation cop = sim;
+        cop.read(ss);
+
+        EXPECT_EQ(sim, cop);
     } END
 }

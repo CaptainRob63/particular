@@ -4,7 +4,6 @@
 #include "Array.hpp"
 #include "Particle.hpp"
 class Simulation {
-    double time;
     Array<Particle> particles;
 public:
     
@@ -12,6 +11,20 @@ public:
      * @brief simulation constructor
      */
     Simulation();
+
+    /**
+     * @brief Get the Particles object (const)
+     * 
+     * @return const Array<Particle> 
+     */
+    const Array<Particle> getParticles() const { return particles; }
+
+    /**
+     * @brief comparison 
+     * 
+     * @param other other simulation 
+     */
+    bool operator==(const Simulation& other) const;
 
     /**
      * @brief list particles to std::ostream 
@@ -40,6 +53,23 @@ public:
      * @param t time to step
      */
     void step(double t);
+
+    /**
+     * @brief write sim to ostream 
+     * @param os ostream 
+     */
+    void write(std::ostream& os) const;
+
+    /**
+     * @brief read sim from istream 
+     * 
+     * @param is istream
+     */
+    void read(std::istream& is);
+    
 };
+
+std::ostream& operator<<(std::ostream& os, const Simulation& sim);
+
 
 #endif

@@ -1,12 +1,16 @@
 #include "Simulation.hpp"
 
 Simulation::Simulation()
-    : time(0)
 {}
+
+bool Simulation::operator==(const Simulation& other) const
+{
+    return (particles == other.particles);
+}
 
 void Simulation::listParticles(std::ostream& os)
 {
-    particles.print(os, "\n");
+    os << particles;
 }
 
 void Simulation::addParticle(Particle* p)
@@ -32,4 +36,23 @@ void Simulation::step(double time)
 
     for (size_t i = 0; i < particles.getSize(); ++i)
         particles[i].move(time);
+}
+
+void Simulation::write(std::ostream& os) const 
+{
+    os << "{" << std::endl;
+    particles.write(os);
+    os << "}" << std::endl << std::endl;;
+}
+
+void Simulation::read(std::istream& is) 
+{
+    is.ignore(2);
+    particles.read(is);
+    is.ignore(3);
+}
+
+std::ostream& operator<<(std::ostream& os, const Simulation& sim)
+{
+    return os << sim.getParticles();
 }
