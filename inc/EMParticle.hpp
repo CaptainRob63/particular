@@ -40,7 +40,8 @@ public:
      * @return Vector force pointing towards other 
      */
     Vector forceWith(const EMParticle& other) const;
-
+    using Particle::forceWith;
+    using GravityParticle::forceWith;
 
     /**
      * @brief overwritten GravityParticle write method

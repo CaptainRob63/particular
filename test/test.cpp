@@ -18,7 +18,7 @@ int main(void) {
     {
         Array<int> arr;
         for (int i = 0; i <= 10; i++)
-            arr.insert(i);
+            arr.insert(new int(i));
         
         std::stringstream out; 
         out << arr;
@@ -29,13 +29,13 @@ int main(void) {
     TEST(Array, insert1) 
     {
         Array<char> arr;
-        arr.insert('I');
-        arr.insert('n');
-        arr.insert('f');
-        arr.insert('o');
-        arr.insert('C');
-        arr.insert('+');
-        arr.insert('+');
+        arr.insert(new char('I'));
+        arr.insert(new char('n'));
+        arr.insert(new char('f'));
+        arr.insert(new char('o'));
+        arr.insert(new char('C'));
+        arr.insert(new char('+'));
+        arr.insert(new char('+'));
 
         std::stringstream out; 
         arr.print(out, "");
@@ -50,7 +50,7 @@ int main(void) {
     {
         Array<int> arr;
         for (size_t i = 0; i < 32; i++) {
-            arr.insert(i);
+            arr.insert(new int(i));
         }
 
         std::stringstream out;
@@ -72,7 +72,7 @@ int main(void) {
     {
         Array<int> arr; 
         for(int i = 0; i <= 100; i++)
-            arr.insert(i);
+            arr.insert(new int(i));
         
         std::stringstream arrayStr;
         arrayStr << arr;
@@ -99,7 +99,7 @@ int main(void) {
     {
         Array<char> arr;
         for (int i = 0; i < 10; i++) {
-            arr.insert('c');
+            arr.insert(new char('c'));
         }
 
         Array<char> arrConstruct(arr);
@@ -115,7 +115,7 @@ int main(void) {
     { 
         Array<int> arr(10);
         for (int i = 0; i < 10; i++)
-            arr.insert(i);
+            arr.insert(new int(i));
 
         std::stringstream ss;
         ss << arr;
@@ -131,7 +131,7 @@ int main(void) {
     {
         Array<int> arr(10);
         for (int i = 0; i < 10; i++)
-            arr.insert(i);
+            arr.insert(new int(i));
         
         Array<int> copy(arr);
 
@@ -161,7 +161,7 @@ int main(void) {
         EXPECT_EQ(Vector(0,0,0), p.getPos());
         EXPECT_EQ(Vector(0,0,0), p.getVel());
 
-        p.applyForce(Vector(1,1,1));
+        p.applyForce(Vector(1,1,1), 1);
         EXPECT_EQ(Vector(1,1,1), p.getVel()); 
 
         std::stringstream os;
@@ -218,8 +218,9 @@ int main(void) {
         Simulation sim;
         GravityParticle gp1(Vector(0,0,0), Vector(0,0,0), 1, true);
         GravityParticle gp2(Vector(1,0,0), Vector(0,0,0), 1, true);
-        sim.addParticle(gp1);
-        sim.addParticle(gp2);
+        sim.addParticle(new GravityParticle(gp1));
+        sim.addParticle(new GravityParticle(gp2));
+        sim.listParticles(std::cout);
         sim.step(1);
         sim.listParticles(std::cout);
     } END

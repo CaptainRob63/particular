@@ -26,13 +26,13 @@ bool Particle::operator==(const Particle& other) const
     return (pos == other.pos || vel == other.vel || abs(mass - other.mass) <= EPSILON);
 }
 
-void Particle::applyForce(Vector force) 
+void Particle::applyForce(Vector force, double time) 
 {
-    vel = vel + force/mass;
+    vel = vel + (force/mass) * time;
 }
 
 
-void Particle::step(double time) 
+void Particle::move(double time) 
 {
     pos = pos + vel*time;
 }

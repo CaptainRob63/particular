@@ -25,7 +25,7 @@ public:
      * 
      * @param p particle to add
      */
-    void addParticle(Particle p);
+    void addParticle(Particle* p);
 
     /**
      * @brief remove a particle from simulation 

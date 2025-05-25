@@ -75,21 +75,22 @@ public:
      * @param other other particle
      * @return Vector force vector
      */
-    Vector forceWith(const Particle& other) { return Vector(0,0,0); }
+    virtual Vector forceWith(const Particle& other) { return Vector(0,0,0); }
 
     /**
      * @brief applies force to particle
      * 
      * @param force force to apply
+     * @param time time to apply force for
      **/
-    void applyForce(Vector force);
+    void applyForce(Vector force, double time);
 
     /**
      * @brief move the particle based on its velocity vector 
      * 
      * @param time how much time to move the particle for
      */
-    void step(double time);
+    void move(double time);
 
     /**
      * @brief write to ostream 

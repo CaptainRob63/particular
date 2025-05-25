@@ -47,8 +47,8 @@ public:
      * @param other particle to calculate interaction with
      * @return Vector force vector pointing towards other parameter vector
      */
-    Vector forceWith(const GravityParticle& other) const;
-
+    virtual Vector forceWith(const GravityParticle& other) const;
+    using Particle::forceWith;
 
     /**
      * @brief particle write method overwrite 

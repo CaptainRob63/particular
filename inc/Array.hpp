@@ -186,10 +186,10 @@ public:
      * @brief Insert an element at a specific index
      * @throws std::out_of_range when index is outside used array
      * 
-     * @param elem Element to insert
+     * @param pelem allocated element pointer (usage: arr.insert(new T); )
      * @param idx Index at which to insert
      */
-    void insert(const T& elem, size_t idx) 
+    void insert(T* pelem, size_t idx) 
     {
         if (idx > size) throw std::out_of_range("Insert index out of bounds");
         if (size >= capacity) 
@@ -199,18 +199,18 @@ public:
             *data[i] = *data[i - 1];
         }
 
-        data[idx] = new T(elem);
+        data[idx] = pelem;
         size++;
     }
 
     /**
      * @brief Insert an element at the end of the array
      * 
-     * @param elem Element to insert
+     * @param pelem Element to insert
      */
-    void insert(const T& elem) 
+    void insert(T* pelem) 
     {
-        insert(elem, size);
+        insert(pelem, size);
     }
 
     /**
