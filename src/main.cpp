@@ -97,7 +97,7 @@ int main(int argc, const char** argv)
                 double length, step;
                 std::cin >> length >> step;
 
-                std::ofstream os("sim.dat", std::ofstream::out | std::ofstream::binary);
+                std::ofstream os("sim.dat", std::ofstream::out );
                 sim.write(os);
                 for (double t0 = 0; t0 < length; t0 += step)
                 {
@@ -110,9 +110,7 @@ int main(int argc, const char** argv)
 
             case 5:
                 {
-                std::ifstream is("sim.dat", std::ifstream::binary | std::ifstream::in);
-                std::cout << "asdasdasd";
-                std::cout << is.peek();
+                std::ifstream is("sim.dat", std::ifstream::in);
 
                 is.seekg(-1, is.end);
                 while (is.peek() != '{') 
