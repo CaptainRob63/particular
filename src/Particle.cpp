@@ -54,7 +54,12 @@ void Particle::write(std::ostream& os) const
 
 void Particle::read(std::istream& is) 
 {
-    (is >> pos.x >> pos.y >> pos.z).ignore(1);
+    (is >>
+    pos.x >>
+    pos.y >>
+    pos.z)
+    .ignore(1);
+
     (is >> vel.x >> vel.y >> vel.z).ignore(1);
     (is >> mass).ignore(1);
     (is >> charge).ignore(1);

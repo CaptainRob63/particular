@@ -134,7 +134,6 @@ int main(void) {
         Array<int> copy(arr);
 
         EXPECT_EQ(arr, copy) << "operator== rossz\n";
-
     } END
 
 
@@ -159,19 +158,22 @@ int main(void) {
         EXPECT_EQ(Vector(0,0,0), p.getPos());
         EXPECT_EQ(Vector(0,0,0), p.getVel());
 
-        p.applyForce(Vector(1,1,1), 1);
-        EXPECT_EQ(Vector(1,1,1), p.getVel()); 
+        p.applyForce(Vector(1.12,1,1), 1);
+        EXPECT_EQ(Vector(1.12,1,1), p.getVel()); 
 
-        std::stringstream os;
-        p.write(os);
+        p.move(1);
+        EXPECT_EQ(Vector(1.12,1,1), p.getPos());
+
+        std::fstream fs("test.dat", std::fstream::in | std::fstream::out);
+        p.write(fs);
         Particle pcop;
-        pcop.read(os);
+        pcop.read(fs);
 
         EXPECT_EQ(p, pcop);
     } END
 
 
-    TEST(Particle, all)
+    TEST(Particle, forceWith)
     {
         Vector v1(3,3,3);
         Vector v2(4,3,3);
@@ -190,39 +192,32 @@ int main(void) {
 
     } END
 
-    TEST(Particle, all)
-    {
-        Vector v1(3,3,3);
-        Vector v2(4,3,3);
-
-        Particle gp1(v1, v1, 1, 1, false);
-        Particle gp2(v2, v1, 1, 1, false);
-
-        EXPECT_EQ(Vector(1,0,0), gp1.forceWith(gp2));
-        EXPECT_EQ(Vector(-1,0,0), gp2.forceWith(gp1));
-
-        Particle* p1 = &gp1;
-        Particle* p2 = &gp2;
-
-        EXPECT_EQ(Vector(1,0,0), p1->forceWith(*p2));
-        EXPECT_EQ(Vector(-1,0,0), p2->forceWith(*p1));
-    } END
-
     TEST(Simulation, all) 
     {
         Simulation sim;
         Particle gp1(Vector(0,0,0), Vector(0,0,0), 1, 0, true);
-        Particle gp2(Vector(1,0,0), Vector(0,0,0), 1, 0, true);
+        Particle gp2(Vector(1.113213,0,0), Vector(0,0,0), 1, 0, true);
         sim.addParticle(new Particle(gp1));
         sim.addParticle(new Particle(gp2));
-        sim.listParticles(std::cout);
+        //sim.listParticles(std::cout);
         sim.step(1);
-        sim.listParticles(std::cout);
+        //sim.listParticles(std::cout);
 
         std::stringstream ss;
         sim.write(ss);
-        Simulation cop = sim;
+        Simulation cop;
         cop.read(ss);
+
+        EXPECT_EQ(sim, cop);
+
+
+        std::ofstream ofs("test.dat", std::ofstream::binary);
+        sim.write(ofs);
+        ofs.close();
+
+        std::ifstream ifs("test.dat", std::ifstream::binary);
+        cop.read(ifs);
+        ifs.close();
 
         EXPECT_EQ(sim, cop);
     } END
