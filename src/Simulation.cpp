@@ -40,16 +40,16 @@ void Simulation::step(double time)
 
 void Simulation::write(std::ostream& os) const 
 {
-    os << "{" << std::endl;
+    os << '{' << std::endl;
     particles.write(os);
-    os << "}" << std::endl << std::endl;;
+    os << '}' << std::endl;
 }
 
 void Simulation::read(std::istream& is) 
 {
     is.ignore(2);
     particles.read(is);
-    is.ignore(3);
+    is.ignore(2);
 }
 
 std::ostream& operator<<(std::ostream& os, const Simulation& sim)

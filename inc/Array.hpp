@@ -275,9 +275,13 @@ public:
      */
     void read(std::istream& is)
     {
+        for (size_t i = 0; i < size; i++)
+            delete data[i];
+
         (is >> size).ignore(1);
         for(size_t i = 0; i < size; i++)
         {
+            data[i] = new T;
             data[i]->read(is);
             is.ignore(1);
         }

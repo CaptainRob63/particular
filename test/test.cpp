@@ -164,10 +164,14 @@ int main(void) {
         p.move(1);
         EXPECT_EQ(Vector(1.12,1,1), p.getPos());
 
-        std::fstream fs("test.dat", std::fstream::in | std::fstream::out);
-        p.write(fs);
+        std::ofstream ofs("test.txt");
+        p.write(ofs);
+        ofs.close();
+
         Particle pcop;
-        pcop.read(fs);
+        std::ifstream ifs("test.txt");
+        pcop.read(ifs);
+        ifs.close();
 
         EXPECT_EQ(p, pcop);
     } END
@@ -205,17 +209,18 @@ int main(void) {
 
         std::stringstream ss;
         sim.write(ss);
+        std::cout << ss.str();
         Simulation cop;
         cop.read(ss);
 
         EXPECT_EQ(sim, cop);
 
 
-        std::ofstream ofs("test.dat", std::ofstream::binary);
+        std::ofstream ofs("test2.txt");
         sim.write(ofs);
         ofs.close();
 
-        std::ifstream ifs("test.dat", std::ifstream::binary);
+        std::ifstream ifs("test2.txt");
         cop.read(ifs);
         ifs.close();
 
