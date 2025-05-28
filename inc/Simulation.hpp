@@ -3,6 +3,11 @@
 
 #include "Array.hpp"
 #include "Particle.hpp"
+
+/**
+ * @brief wrapper and manager for all simulation entities (currently only particle array) 
+ * 
+ */
 class Simulation {
     Array<Particle> particles;
 public:
